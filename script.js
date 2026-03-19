@@ -29,16 +29,63 @@ document.addEventListener('keydown', function (e) {
 });
 
 scrollButton.addEventListener('click', (e) => {
-  console.log('pressed')
+
+  console.log('pressed');
   // Getting the coordinates of the section we want to scroll to
+
   const s1coords = section1.getBoundingClientRect();
   console.log(s1coords);
 
   // target is the button that is clicked here 
+  // Scroll relative to the button
   console.log(e.target.getBoundingClientRect());
 
-  //Scroll
-  console.log('Current Scroll (X/Y)', window.scrollX, scrollY)
+  //Scroll relative to window
+  console.log('Current Scroll (X/Y)', window.scrollX, window.scrollY)
+
+  // height and weight with respect of the window 
+  console.log('height/width viewport',
+    document.documentElement.clientHeight,
+    document.documentElement.clientWidth
+  );
+
+  // Coordinates For Scrolling || This is the Scrolling 
+  // window.scrollTo(s1coords.left + window.scrollX, s1coords.top + window.scrollY);
+
+  // Smooth Scrolling
+
+  // window.scrollTo({
+  //   left: s1coords.left + window.scrollX, 
+  //   top: s1coords.top + window.scrollY,
+  //   behavior: 'smooth',
+  // });
+
+  // Modern Way
+
+  section1.scrollIntoView({behavior: 'smooth'});
+
+});
 
 
-})
+// Random Color Creation
+
+// rgb(255, 255, 255)
+
+const randomInt = (min, max) => Math.floor(Math.random()  * (max - min + 1 ) + min);
+
+const randomColor = () => `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`
+
+console.log(randomColor());
+
+document.querySelector('.nav__link').addEventListener('click', (e) => {
+  e.target.style.backgroundColor = randomColor()
+});
+
+document.querySelector('.nav__links').addEventListener('click', (e) => {
+  e.target.style.backgroundColor = randomColor()
+});
+
+document.querySelector('.nav').addEventListener('click', (e) => {
+    e.target.style.backgroundColor = randomColor()
+});
+
