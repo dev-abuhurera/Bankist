@@ -67,25 +67,62 @@ scrollButton.addEventListener('click', (e) => {
 });
 
 
+// ------------------------------------Event Bubbling + Propogation---------------------------------------------------------------
 // Random Color Creation
 
 // rgb(255, 255, 255)
 
-const randomInt = (min, max) => Math.floor(Math.random()  * (max - min + 1 ) + min);
+// const randomInt = (min, max) => Math.floor(Math.random()  * (max - min + 1 ) + min);
 
-const randomColor = () => `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`
+// const randomColor = () => `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`
 
-console.log(randomColor());
+// console.log(randomColor());
 
-document.querySelector('.nav__link').addEventListener('click', (e) => {
-  e.target.style.backgroundColor = randomColor()
-});
+// document.querySelector('.nav__link').addEventListener('click', (e) => {
+//   e.target.style.backgroundColor = randomColor()
+// });
+
+// document.querySelector('.nav__links').addEventListener('click', (e) => {
+//   e.target.style.backgroundColor = randomColor()
+// });
+
+// document.querySelector('.nav').addEventListener('click', (e) => {
+//     e.target.style.backgroundColor = randomColor()
+// });
+// ---------------------------------------------------------------------------------------------------------------------------
+
+// It is the default behaviour of #(id) ---> to move to the section that has that id  
+// document.querySelectorAll('.nav__link').forEach(
+//   function(el){
+//     el.addEventListener('click', function(e){
+//       e.preventDefault();
+//       const id = this.getAttribute('href');
+//       document.querySelector(id).scrollIntoView({behavior: 'smooth'})
+//     })
+//   }
+// )
+// We can use the Event Deligation in which we will attach the event handler with the common parent and then the event will bubble up
 
 document.querySelector('.nav__links').addEventListener('click', (e) => {
-  e.target.style.backgroundColor = randomColor()
-});
+    //Now, we attached the event to the parent and we will see where the event happens
+    e.preventDefault()
+    //Matching Strategy
+    if(e.target.classList.contains('nav__link')){
+      const id = e.target.getAttribute('href');
+      document.querySelector(id).scrollIntoView({behavior: 'smooth'})
+    }
+  }
+)
 
-document.querySelector('.nav').addEventListener('click', (e) => {
-    e.target.style.backgroundColor = randomColor()
-});
+// ============================================================Traversing Dom=====================================================================
+// Parent (h1)
+const h1 = document.querySelector('h1');
+console.log(h1);
+
+// Going Down to the Child ----- queryselector can directly work on the element
+console.log(h1.querySelectorAll('.highlight'))
+
+// Now if we have other classes not of the h1 element having the same highlight, then it will not get selected 
+
+//-------------------------------------------Direct Child-------------------------------------------------------
 
