@@ -4,6 +4,9 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const scrollButton = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
 
 
 const openModal = function (e) {
@@ -124,6 +127,8 @@ console.log(h1.querySelectorAll('.highlight'))
 
 // Now if we have other classes not of the h1 element having the same highlight, then it will not get selected 
 
+// Going Upward : Parent
+
 //-------------------------------------------Direct Child-------------------------------------------------------
 
 console.log(h1.childNodes);
@@ -131,21 +136,53 @@ console.log(h1.children); // Collection
 
 //first and last element child
 
-h1.firstElementChild.style.color = 'white';
-h1.firstElementChild.style.color = 'white';
+// h1.firstElementChild.style.color = 'white';
+// h1.firstElementChild.style.color = 'white';
 
 // ---------------------------Creating the Tab Component---------------------------------
 
-const tabs = document.querySelectorAll('.operations__tab');
-console.log(tabs);
+// -------------------------------------------------------------------------------------------------
+// It is a bad Practice and thus we will use the Event Deligation
+// tabs.forEach(t => t.addEventListener('click', () => {
+//   console.log('Clicked')
+// }));
 
-const tabsContainer = document.querySelector('.operations__tab-container');
-console.log(tabsContainer);
+// -------------------------------------------------------------------------------------------------
 
-const tabsContent = document.querySelectorAll('.operations__content');
-console.log(tabsContent);
+// So, we have to add the eventListener to the parent element -----> ------->> -------->>> ----------->>>>
+
+tabsContainer.addEventListener('click', (e) => {
+  const click = e.target.closest('.operations__tab');
+
+  // We need only the button itself and not the span element and even we click the span then at that point we should have the span again and thus we are using hte parentElement
+
+  // Now the span is selected but now the second element started taking the parent too
+
+  // Guard Clause
+  if(!click) return
+
+  // Before Assigning the active class to all we will first remove it 
+
+  tabs.forEach((t) => {
+    t.classList.remove('operations__tab--active') 
+  })
+
+  tabsContent.forEach((t) => {
+    t.classList.remove('operations__content--active')
+  })
+
+  // Now we will use the method --- closet ---
+  click.classList.add('operations__tab--active');
 
 
-tabs.forEach(t => t.addEventListener('click', () => {
-  console.log('Clicked')
-}));
+  // Active Content Area
+
+  // DataAttribute has the information of which tab is to be displayed 
+  document.querySelector(`.operations__content--${click.dataset.tab}`).classList.add('operations__content--active')
+
+
+});
+
+
+
+
