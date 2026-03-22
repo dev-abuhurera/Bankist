@@ -188,7 +188,7 @@ tabsContainer.addEventListener('click', (e) => {
 // Here we will design an effect in which all the links will fade out when we hover over one link
 
 const hoverLink = function(e){
-  console.log(this, e.currentTarget);
+  // console.log(this, e.currentTarget);
    if(e.target.classList.contains('nav__link')){
     const link = e.target;
     // we have one link and for all the other links to be selected we will move towards the parent and then will select the child
@@ -216,5 +216,31 @@ const hoverLink = function(e){
 // More Better Way is to use the bind method in this function
 nav.addEventListener('mouseover', hoverLink.bind(0.5)); // Create the copy of the function
 nav.addEventListener('mouseout', hoverLink.bind(1)); // bind return a new funciton
+
+// ----------------------------------------------------------------------------------------------------------------------------------------
+
+// Sticky navigation using the same intersection observer API
+// This api observes our code --- when a certain element intersect the viewport 
+
+const header = document.querySelector('.header');
+const navheight = nav.getBoundingClientRect().height;
+
+const stickyNav = function (entries) {
+  const [entry] = entries;
+  console.log(entry);
+
+  if(!entry.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');  
+};
+
+const headerObserver = new IntersectionObserver(stickyNav,  {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navheight}px`
+});
+
+headerObserver.observe(header);
+
+// =============================================================Reveling the elements when we get close==============================================
 
 
