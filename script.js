@@ -126,3 +126,13 @@ console.log(h1.querySelectorAll('.highlight'))
 
 //-------------------------------------------Direct Child-------------------------------------------------------
 
+console.log(h1.childNodes);
+console.log(h1.children); // Collection
+
+//first and last element child
+
+h1.firstElementChild.style.color = 'white';
+h1.firstElementChild.style.color = 'white';
+
+// ---------------------------Creating the Tab Component---------------------------------
+
