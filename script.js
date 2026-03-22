@@ -7,7 +7,7 @@ const section1 = document.querySelector('#section--1');
 const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
-
+const nav = document.querySelector('.nav');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -183,6 +183,34 @@ tabsContainer.addEventListener('click', (e) => {
 
 });
 
+// =========================================================[Passing the Arguments in the event Handlers]==============================================
 
+// Here we will design an effect in which all the links will fade out when we hover over one link
 
+const hoverLink = function(e, opacity){
+   if(e.target.classList.contains('nav__link')){
+    const link = e.target;
+    // we have one link and for all the other links to be selected we will move towards the parent and then will select the child
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    console.log(siblings);
+    const logo = link.closest('.nav').querySelector('img');
+
+    //changing the opacity
+    siblings.forEach(el => {
+      if(el !== link) el.style.opacity = opacity;
+    });
+    logo.style.opacity = opacity;
+  }
+}
+
+// mouseEnter and mouseOver --- same but mouseEnter doesnot bubble
+nav.addEventListener('mouseover', (e) => {
+ hoverLink(e, 0.5);
+})
+
+nav.addEventListener('mouseout', (e) => {
+   hoverLink(e, 1);
+})
+
+// More Better Way
 
