@@ -136,3 +136,16 @@ h1.firstElementChild.style.color = 'white';
 
 // ---------------------------Creating the Tab Component---------------------------------
 
+const tabs = document.querySelectorAll('.operations__tab');
+console.log(tabs);
+
+const tabsContainer = document.querySelector('.operations__tab-container');
+console.log(tabsContainer);
+
+const tabsContent = document.querySelectorAll('.operations__content');
+console.log(tabsContent);
+
+
+tabs.forEach(t => t.addEventListener('click', () => {
+  console.log('Clicked')
+}));
