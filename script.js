@@ -227,7 +227,7 @@ const navheight = nav.getBoundingClientRect().height;
 
 const stickyNav = function (entries) {
   const [entry] = entries;
-  console.log(entry);
+ 
 
   if(!entry.isIntersecting) nav.classList.add('sticky');
   else nav.classList.remove('sticky');  
@@ -242,5 +242,65 @@ const headerObserver = new IntersectionObserver(stickyNav,  {
 headerObserver.observe(header);
 
 // =============================================================Reveling the elements when we get close==============================================
+
+// now basically we have added "section--hidden" class to all the sessions and we will reveal this as we move downwards 
+
+const allSections = document.querySelectorAll('.section')
+
+const revealSection = function (entries, observer){
+
+  entries.forEach(entry => {
+  if (!entry.isIntersecting) return
+  else entry.target.classList.remove('section--hidden')
+  observer.unobserve(entry.target)  
+  });
+
+}
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15,
+});
+
+allSections.forEach((section) => {
+  sectionObserver.observe(section)
+  // we will add the hidden property programatically through js
+  section.classList.add('section--hidden');
+})
+
+// ===================================================================Lazy Loading Images=================================================================
+
+
+//using intersection observer api
+const imgTargets = document.querySelectorAll('img[data-src]')
+
+const loadImg = function(entries, observer){
+  const [entry] = entries;
+  console.log(entry)
+
+  if(!entry.isIntersecting) return
+
+  // replace src with data-src
+
+  entry.target.src = entry.target.dataset.src;
+  // js will fire the load event
+
+  entry.target.addEventListener('load', function(){
+    entry.target.classList.remove('lazy-img')
+  })
+
+  observer.unobserve(entry.target);
+
+}
+
+const imgObserver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0,
+  rootMargin: '+200px'
+});
+
+imgTargets.forEach(img => imgObserver.observe(img));
+
+// Slider Component 
 
 
