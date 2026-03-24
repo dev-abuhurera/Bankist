@@ -1,5 +1,7 @@
 # 🏦 Bankist — Advanced DOM Manipulation Project
 
+<img width="1788" height="931" alt="image" src="https://github.com/user-attachments/assets/f9521cbe-d110-42dd-ac63-1df579a1304a" />
+
 A modern, interactive banking landing page built to explore and apply advanced JavaScript DOM concepts. This project is a hands-on deep dive into how JavaScript can bring a webpage fully to life — from smooth scrolling and lazy loading to intersection observers and dynamic UI components.
 
 ---
