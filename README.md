@@ -84,5 +84,3 @@ open index.html
 This project was built as part of learning **Advanced DOM & Events** in JavaScript. It covers real-world patterns used in production websites and serves as a reference for common UI interactions implemented from scratch — no libraries, no frameworks, just vanilla JS.
 
 ---
-
-> *"The DOM is not just a tree of elements — it's a living interface between your logic and your users."*
