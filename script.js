@@ -306,14 +306,42 @@ imgTargets.forEach(img => imgObserver.observe(img));
 const slides = document.querySelectorAll('.slide') 
 const btnRight = document.querySelector('.slider__btn--right')
 const btnLeft = document.querySelector('.slider__btn--left')
-const slider = document.querySelector('.slider');
+// const slider = document.querySelector('.slider');
+const dotContaner = document.querySelector('.dots');
+ 
 // now the slides are on top of each other and we will move them side by side 
 
 // now we have to tranlate the images => 0%, 100%, 200%, 300%
 // width -> 100% = new image 200% = new image 300%
 
-slider.style.transform = 'scale(0.4) translateX(-800px)';
-slider.style.overflow = 'visible';
+// slider.style.transform = 'scale(0.4) translateX(-800px)';
+// slider.style.overflow = 'visible';
+
+const activateDot = function(slide){
+  document.querySelectorAll('.dots__dot').forEach(
+    dot => dot.classList.remove(
+      'dots__dot--active'
+    )
+  )
+
+  document.querySelector(`
+    .dots__dot[data-slide="${slide}"]
+    `).classList.add('dots__dot--active')
+}
+
+
+const createDots = function () {
+  // Creating html element
+  slides.forEach((_, i) => {
+    dotContaner.insertAdjacentHTML('beforeend',
+      `<button class="dots__dot" data-slide="${i}">
+      </button>`
+    )}) 
+    
+  }
+  
+  createDots()
+  activateDot(0)
 
 let curSlide = 0;
 const maxSlide = slides.length;
@@ -323,7 +351,6 @@ const goToSlide = (slide) => {
       s.style.transform = `translateX(${100 * (i - slide)}%)`  
   })
 };
-
 goToSlide(0); // it will translate all the data already
 
 const nextSlide = function(){
@@ -337,16 +364,35 @@ const nextSlide = function(){
   }
   
   goToSlide(curSlide)
+  activateDot(curSlide)
   
 };
 
-
 const prevSlide = function(){
-  
-  curSlide--;
-  goToSlide(curSlide)
-  
+  if(curSlide === 0){
+    curSlide = maxSlide - 1;
+  }
+  else{
+    curSlide--;
+  }
+
+  goToSlide(curSlide) 
+  activateDot(curSlide)
 }
 
 btnRight.addEventListener('click', nextSlide);
 btnLeft.addEventListener('click', prevSlide);
+// using the keyboard
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'ArrowLeft') prevSlide();
+  e.key === 'ArrowRight' && nextSlide();
+})
+
+dotContaner.addEventListener('click', (e) => {
+  if(e.target.classList.contains('dots__dot')){
+    const curSlide = Number(e.target.dataset.slide);
+    goToSlide(curSlide);
+    activateDot(curSlide)
+  }
+})
