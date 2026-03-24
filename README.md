@@ -21,6 +21,8 @@ A modern, interactive banking landing page built to explore and apply advanced J
 
 ## 🧠 Core JavaScript Concepts Covered
 
+<img width="1812" height="944" alt="image" src="https://github.com/user-attachments/assets/5e20c0fe-cd33-4b31-bdcd-33332ad20a4f" />
+
 ### 📌 DOM Selection & Manipulation
 Selecting elements using `querySelector`, `querySelectorAll`, and traversing the DOM tree with `.closest()`, `.children`, `.childNodes`, and `.firstElementChild`.
 
