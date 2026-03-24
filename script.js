@@ -303,4 +303,19 @@ imgTargets.forEach(img => imgObserver.observe(img));
 
 // Slider Component 
 
+const slides = document.querySelectorAll('.slide') 
+const btnRight = document.querySelector('.slider__btn--right')
+const btnLeft = document.querySelector('.slider__btn--left')
+// now the slides are on top of each other and we will move them side by side 
+
+slides.forEach((s, i) => {
+  s.style.transform = `translateX(${100 * i}%)`;
+})
+
+// now we have to tranlate the images => 0%, 100%, 200%, 300%
+// width -> 100% = new image 200% = new image 300%
+
+const slider = document.querySelector('.slider');
+slider.style.transform = 'scale(0.5) translateX(-2)';
+slider.style.overflow = 'visible';
 
