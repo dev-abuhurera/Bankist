@@ -301,21 +301,52 @@ const imgObserver = new IntersectionObserver(loadImg, {
 
 imgTargets.forEach(img => imgObserver.observe(img));
 
-// Slider Component 
+// Slider Component =======================================================================================
 
 const slides = document.querySelectorAll('.slide') 
 const btnRight = document.querySelector('.slider__btn--right')
 const btnLeft = document.querySelector('.slider__btn--left')
+const slider = document.querySelector('.slider');
 // now the slides are on top of each other and we will move them side by side 
-
-slides.forEach((s, i) => {
-  s.style.transform = `translateX(${100 * i}%)`;
-})
 
 // now we have to tranlate the images => 0%, 100%, 200%, 300%
 // width -> 100% = new image 200% = new image 300%
 
-const slider = document.querySelector('.slider');
-slider.style.transform = 'scale(0.5) translateX(-2)';
+slider.style.transform = 'scale(0.4) translateX(-800px)';
 slider.style.overflow = 'visible';
 
+let curSlide = 0;
+const maxSlide = slides.length;
+
+const goToSlide = (slide) => {
+  slides.forEach((s, i) => {
+      s.style.transform = `translateX(${100 * (i - slide)}%)`  
+  })
+};
+
+goToSlide(0); // it will translate all the data already
+
+const nextSlide = function(){
+  // -100, 0, 100, 200
+  
+  if(curSlide === maxSlide - 1){
+    curSlide = 0
+  }
+  else{
+    curSlide++;
+  }
+  
+  goToSlide(curSlide)
+  
+};
+
+
+const prevSlide = function(){
+  
+  curSlide--;
+  goToSlide(curSlide)
+  
+}
+
+btnRight.addEventListener('click', nextSlide);
+btnLeft.addEventListener('click', prevSlide);
